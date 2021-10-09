@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-messaging.js"></script>
+    <!-- <script src="/static/js/firebase-messaging-sw.js"></script>
+
+     -->
+
+
+
+     <script>
+        var firebaseConfig = {
+          apiKey: "AIzaSyA5QXTBDrkkt6RKDiEJlz2xVjq_YAL7Jww",
+          authDomain: "ludo-27977.firebaseapp.com",
+          databaseURL: "https://ludo-27977-default-rtdb.firebaseio.com",
+          projectId: "ludo-27977",
+          storageBucket: "ludo-27977.appspot.com",
+          messagingSenderId: "773216686826",
+          appId: "1:773216686826:web:2c86813e6a5a284914bd93",
+          measurementId: "G-D84371JPYJ"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+      
+        const messaging = firebase.messaging();
+        console.log(messaging.getToken())
+        messaging.getToken({ vapidKey: 'BHNrwLRS0cbeEqhePd4lyA1xmyIx1YDsFxIB21CUC5IDROXjBTTh8jKxXz2uMotCI_E-ZaGEHHad46wKuU531dY' }).then((currentToken) => {
+        if (currentToken) {
+          
+          console.log(currentToken)
+        } else {
+          console.log('No registration token available. Request permission to generate one.');
+       
+        }
+      }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+      });
+      
+      
+        messaging
+         .requestPermission()
+         .then(function () {
+           console.log("Notification permission granted.");
+           return messaging.getToken()
+         })
+         .catch(function (err) {
+         console.log("Unable to get permission to notify.", err);
+       });
+      
+      
+        messaging.onMessage((payload) => {
+        console.log('Message received. ', payload);
+       
+      });
+      
+      
+      
+      </script>
+  
+
+</head>
+
+<body>
+
+</body>
+
+</html>
